@@ -1,0 +1,32 @@
+{% block title %}Jeu n°{{ jeu.id }}{% endblock %}
+
+{% block body %}
+    <h1>Jeu</h1>
+
+       {% dump jeu %}
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ jeu.id }}</td>
+            </tr>
+            <tr>
+                <th>Annee</th>
+                <td>{{ jeu.annee }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ jeu.nom }}</td>
+            </tr>
+            <tr>
+                <th>Bibliotheque</th>
+                <td>{{ jeu.bibliotheque.nom}}</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <a href="{{ path('bibliotheque_show', {'id': jeu.bibliotheque.id}) }}">Back to {{ jeu.bibliotheque.nom}}</a>
+
+{% endblock %} {# body #} 
+
