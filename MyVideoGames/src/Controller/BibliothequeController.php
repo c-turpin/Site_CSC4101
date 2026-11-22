@@ -15,23 +15,10 @@ final class BibliothequeController extends AbstractController
     {
         $entityManager = $doctrine->getManager();
         $bibliotheques = $entityManager->getRepository(Bibliotheque::class)->findAll();
-        $htmlpage = "<!DOCTYPE html>
-<html>
-  <body>Liste des bibliothèques de tous les membres :
-    <ul>";
-        foreach ($bibliotheques as $bibliotheque) {
-            $htmlpage .= "<a href=" . $this->generateUrl("bibliotheque_show", ['id' => $bibliotheque->getId()]) . "><li>" . $bibliotheque->getNom() . " (id : " . $bibliotheque->getId() . ") </li></a>";
-		};
-        $htmlpage .= "
-    </ul>
-  </body>
-</html>
-";
-		return new Response(
-			$htmlpage,
-			Response::HTTP_OK,
-			array('content-type' => 'text/html')
-		);
+        
+        return $this->render('bibliotheque/index.html.twig', [
+            'bibliotheques' => $bibliotheques,
+        ]);
     }
     
     /**

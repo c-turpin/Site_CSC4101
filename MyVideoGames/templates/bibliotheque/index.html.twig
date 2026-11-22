@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des bibliothèques{% endblock %}
+
+{% block body %}
+    <div>
+        <h2>Liste des bibliothèques de tous les membres :</h2>
+        
+        <ul>
+            {% for bibliotheque in bibliotheques %}
+                <li>
+                    <a href="{{ path('bibliotheque_show', {'id': bibliotheque.id}) }}">
+                        {{ bibliotheque.nom }} (id : {{ bibliotheque.id }})
+                    </a>
+                </li>
+            {% else %}
+                <li>Aucune bibliothèque enregistrée.</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

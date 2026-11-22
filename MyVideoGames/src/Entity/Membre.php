@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\MembreRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -33,6 +35,17 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToOne(mappedBy: 'membre', cascade: ['persist', 'remove'])]
     private ?Bibliotheque $bibliotheque = null;
+
+    /**
+     * @var Collection<int, Showcase>
+     */
+    #[ORM\OneToMany(targetEntity: Showcase::class, mappedBy: 'membre')]
+    private Collection $showcases;
+
+    public function __construct()
+    {
+        $this->showcases = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -128,6 +141,36 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         $this->bibliotheque = $bibliotheque;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Showcase>
+     */
+    public function getShowcases(): Collection
+    {
+        return $this->showcases;
+    }
+
+    public function addShowcase(Showcase $showcase): static
+    {
+        if (!$this->showcases->contains($showcase)) {
+            $this->showcases->add($showcase);
+            $showcase->setMembre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeShowcase(Showcase $showcase): static
+    {
+        if ($this->showcases->removeElement($showcase)) {
+            // set the owning side to null (unless already changed)
+            if ($showcase->getMembre() === $this) {
+                $showcase->setMembre(null);
+            }
+        }
 
         return $this;
     }

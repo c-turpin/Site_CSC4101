@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Membre{% endblock %}
+
+{% block body %}
+    <h1>Membre</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ membre.id }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ membre.email }}</td>
+            </tr>
+            <tr>
+    			<th><a href="{{ path('bibliotheque_show', {'id' : membre.bibliotheque.id}) }}"> Bibliotheque </a></th>
+			</tr>
+			<tr>
+    			<th>Showcases</th>
+    				<td>
+        				<ul>
+                          {% for showcase in membre.showcases %}
+          					<li>
+                            <a href="{{ path('app_showcase_show', {'id' : membre.showcase.id}) }}"> {{ showcase.nom }} </a>
+          					</li>
+                          {% endfor %}
+        				</ul>
+    				</td>
+			</tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_membre_index') }}">back to list</a>
+{% endblock %}

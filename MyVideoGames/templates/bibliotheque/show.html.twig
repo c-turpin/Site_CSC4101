@@ -1,3 +1,4 @@
+{% extends 'base.html.twig' %}
 {% block title %}Bibliotheque n°{{ bibliotheque.id }}{% endblock %}
 
 {% block body %}
@@ -29,7 +30,7 @@
             	<ul>
 				{% for jeu in bibliotheque.jeux %}
 				<li>
-				<a href="{{  path('jeu_show', {'id': jeu.id}) }}" >{{ jeu }}</a>
+				<a href="{{  path('app_jeu_show', {'id': jeu.id }) }} {{ jeu }}</a>
 				</li>
 				{% endfor %}
 				</ul>            	
@@ -38,7 +39,7 @@
         </tbody>
     </table>
 
-    <a href="{{ path('bibliotheque_list') }}">Back to list</a>
+    <a href="{{ path('app_membre_show', {'id' : bibliotheque.membre.id}) }}"> Back to {{ bibliotheque.membre.useridentifier}} </a>
 
 {% endblock %} {# body #} 
 

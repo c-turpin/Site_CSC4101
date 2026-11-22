@@ -1,0 +1,10 @@
+bootstrap_menu:
+  menus:
+    main:
+      items:
+        Bibliotheques:
+          label: 'Bibliotheques'
+          route: 'bibliotheque_list'
+        Jeux:
+          label: 'Jeux'
+          route: 'app_jeu_index'
